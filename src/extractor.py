@@ -4,6 +4,8 @@ import os
 import google.generativeai as genai
 from dotenv import load_dotenv
 
+from src.file_processor import extract_text_images, extract_text_pdf
+
 # Load environment variables
 load_dotenv()
 
@@ -33,4 +35,23 @@ def extract_info(text, query, instructions=None):
 
     response = model.generate_content(prompt)
     return response.text
+
+def chatbot(file_path ,user_query):
+    
+    try:
+        if file_path.lower().endswith(".pdf"):
+            document_text = extract_text_pdf(file_path)
+        elif file_path.lower().endswith((".jpg", ".png", ".jpeg")):
+            document_text = extract_text_images([file_path])
+        else:
+            return ("Unsupported file format. Please provide a PDF or image file.")
+    except Exception as e:
+        return(f"Error loading file: {e}")
+
+    try:
+        # Extract information from document based on user query
+        result = extract_info(document_text, user_query)
+        return("\nExtracted Information:", result)
+    except Exception as e:
+        return(f"An error occurred: {e}")
 
