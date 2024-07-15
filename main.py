@@ -23,11 +23,13 @@ def chatbot():
         return
 
     while True:
+        # Get user query
         query = input("\nEnter your query (or 'quit' to exit): ")
         if query.lower() == 'quit':
             break
         
         try:
+            # Extract information from document based on user query
             result = extract_info(document_text, query)
             print("\nExtracted Information:")
             print(result)

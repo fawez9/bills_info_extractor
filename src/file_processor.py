@@ -3,6 +3,7 @@ from io import BytesIO
 from pytesseract import image_to_string
 from PIL import Image
 
+# convert pdf to image then we call extract_text_with_pytesseract to extract text
 def extract_text_pdf(file_path, scale=300/72):
     pdf_file = pdfium.PdfDocument(file_path)
     page_indices = [i for i in range(len(pdf_file))]
@@ -34,6 +35,7 @@ def extract_text_with_pytesseract(list_dict_final_images):
 
     return "\n".join(image_content)
 
+# Extract text from images
 def extract_text_images(list_files):
     image_content = []
 

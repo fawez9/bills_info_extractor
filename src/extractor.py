@@ -10,8 +10,10 @@ load_dotenv()
 # Configure the API key
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
+# Initialize the model
 model = genai.GenerativeModel('gemini-pro')
 
+# Define the extraction function
 def extract_info(text, query, instructions=None):
     prompt = f"""
     You are an expert bill analyzer. Analyze the following bill text:
